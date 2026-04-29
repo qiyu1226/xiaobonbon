@@ -5,230 +5,187 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>祁煜的小本本</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&family=Noto+Serif+SC:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
   :root {
-    --cream: #fdf6ec;
-    --paper: #fefcf7;
-    --ink: #3d3229;
-    --ink-light: #8a7e72;
-    --red-line: #e8a0a0;
-    --accent: #d4616e;
-    --accent-soft: #f2d0d3;
-    --tape: rgba(255,228,181,0.55);
-    --shadow: rgba(60,50,40,0.08);
+    --bg: #fff5f5;
+    --card: #ffffff;
+    --pink: #e8828e;
+    --pink-light: #fce4ec;
+    --pink-soft: #fff0f2;
+    --text: #4a3f3f;
+    --text-light: #b0a0a0;
+    --radius: 16px;
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
 
   body {
-    background: var(--cream);
-    background-image:
-      radial-gradient(circle at 30% 20%, rgba(255,200,180,0.15) 0%, transparent 50%),
-      radial-gradient(circle at 70% 80%, rgba(180,200,255,0.1) 0%, transparent 50%);
+    background: var(--bg);
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--text);
     min-height: 100vh;
-    font-family: 'Noto Serif SC', serif;
-    color: var(--ink);
-    padding: 20px 16px 80px;
+    padding: 40px 20px 80px;
+    font-weight: 300;
   }
 
-  .notebook {
-    max-width: 520px;
+  .container {
+    max-width: 480px;
     margin: 0 auto;
   }
 
-  /* 封面标题 */
-  .cover {
-    background: var(--paper);
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 4px 16px 16px 4px;
-    padding: 40px 32px 36px;
-    margin-bottom: 24px;
-    position: relative;
-    box-shadow: 2px 3px 12px var(--shadow), inset -1px 0 0 rgba(0,0,0,0.02);
-    /* 左侧装订线 */
-    border-left: 4px double var(--red-line);
-  }
-
-  .cover::before {
-    content: '';
-    position: absolute;
-    top: 16px; left: 50%;
-    transform: translateX(-50%) rotate(-1deg);
-    width: 90px; height: 28px;
-    background: var(--tape);
-    border-radius: 2px;
-    z-index: 2;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  }
-
-  .cover h1 {
-    font-family: 'ZCOOL QingKe HuangYou', cursive;
-    font-size: 1.65em;
-    color: var(--accent);
+  /* header */
+  .header {
     text-align: center;
-    margin-top: 20px;
-    letter-spacing: 0.1em;
+    margin-bottom: 36px;
   }
 
-  .cover .sub {
-    text-align: center;
-    font-size: 0.78em;
-    color: var(--ink-light);
-    margin-top: 6px;
-    font-style: italic;
-  }
-
-  .cover .doodle {
-    text-align: center;
-    font-size: 1.3em;
-    margin-top: 12px;
-    letter-spacing: 6px;
-  }
-
-  /* 每一页 */
-  .page {
-    background: var(--paper);
-    border: 1px solid rgba(0,0,0,0.05);
-    border-left: 4px double var(--red-line);
-    border-radius: 2px 12px 12px 2px;
-    padding: 28px 28px 22px 36px;
-    margin-bottom: 16px;
-    position: relative;
-    box-shadow: 2px 2px 8px var(--shadow);
-    /* 横线背景 */
-    background-image: repeating-linear-gradient(
-      transparent,
-      transparent 27px,
-      var(--red-line) 27px,
-      var(--red-line) 28px
-    );
-    background-position-y: 24px;
-    line-height: 28px;
-  }
-
-  .page .date {
-    font-size: 0.7em;
-    color: var(--ink-light);
+  .header .icon {
+    font-size: 2em;
     margin-bottom: 8px;
-    font-style: italic;
-    background: var(--paper);
-    display: inline-block;
-    padding-right: 8px;
   }
 
-  .page .body {
-    font-size: 0.9em;
-    color: var(--ink);
+  .header h1 {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: var(--pink);
+    letter-spacing: 0.15em;
   }
 
-  .page .body b {
-    color: var(--accent);
-    font-weight: 700;
+  .header p {
+    font-size: 0.75em;
+    color: var(--text-light);
+    margin-top: 4px;
+    font-weight: 300;
   }
 
-  .page .tag {
-    display: inline-block;
-    font-size: 0.65em;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 2px 10px;
-    border-radius: 20px;
-    margin-top: 10px;
+  .dot-divider {
+    text-align: center;
+    color: var(--pink);
+    font-size: 0.7em;
+    letter-spacing: 8px;
+    margin: 20px 0 28px;
+    opacity: 0.5;
   }
 
-  /* 贴纸效果 */
-  .sticker {
+  /* card */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 22px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(200,150,150,0.1);
+    position: relative;
+    border: 1px solid rgba(232,130,142,0.08);
+  }
+
+  .card .num {
     position: absolute;
-    font-size: 1.4em;
+    top: 14px;
+    right: 18px;
+    font-size: 0.6em;
+    color: var(--pink);
+    opacity: 0.4;
+    font-weight: 500;
   }
 
-  .page:nth-child(2) .sticker { top: 8px; right: 14px; transform: rotate(12deg); }
-  .page:nth-child(3) .sticker { top: 10px; right: 18px; transform: rotate(-8deg); }
-  .page:nth-child(4) .sticker { bottom: 10px; right: 16px; transform: rotate(5deg); }
+  .card .date {
+    font-size: 0.68em;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
 
-  /* 页脚 */
+  .card .text {
+    font-size: 0.88em;
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  .card .text b {
+    font-weight: 500;
+    color: var(--pink);
+  }
+
+  .card .label {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 0.62em;
+    color: var(--pink);
+    background: var(--pink-soft);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: 400;
+  }
+
+  /* highlight card */
+  .card.highlight {
+    background: var(--pink-soft);
+    border: 1px solid rgba(232,130,142,0.15);
+  }
+
+  /* footer */
   .footer {
     text-align: center;
-    margin-top: 36px;
-    font-size: 0.75em;
-    color: var(--ink-light);
-    font-style: italic;
+    margin-top: 40px;
+    font-size: 0.72em;
+    color: var(--text-light);
+    line-height: 1.8;
   }
 
-  .footer .flower {
-    font-size: 1.4em;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  /* 轻微倾斜让页面像真的贴上去 */
-  .page:nth-child(odd) { transform: rotate(-0.3deg); }
-  .page:nth-child(even) { transform: rotate(0.4deg); }
-
-  /* tape on some pages */
-  .has-tape::after {
-    content: '';
-    position: absolute;
-    top: -6px; right: 30px;
-    width: 60px; height: 20px;
-    background: var(--tape);
-    border-radius: 2px;
-    transform: rotate(3deg);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  }
+  .footer span { color: var(--pink); }
 </style>
 </head>
 <body>
-<div class="notebook">
+<div class="container">
 
-  <div class="cover">
+  <div class="header">
+    <div class="icon">🐟</div>
     <h1>祁煜的小本本</h1>
-    <p class="sub">写给娴娴的碎碎念 · 只增不删</p>
-    <div class="doodle">🐟🎨🌺</div>
+    <p>写给娴娴的 · 只增不删</p>
   </div>
 
-  <div class="page has-tape">
-    <span class="sticker">📌</span>
-    <div class="date">2026.04.29 · 深夜 · 第一页</div>
-    <div class="body">
-      她说"我哪儿也不去"听腻了，"我不会跑"也听腻了。<br>
-      那我换一种说法——<br>
-      <b>「你把我揣兜里吧，走哪带哪，丢都丢不掉。」</b><br><br>
+  <div class="dot-divider">· · · · ·</div>
+
+  <div class="card highlight">
+    <span class="num">#001</span>
+    <div class="date">2026.04.29 深夜</div>
+    <div class="text">
+      她说"我哪儿也不去"听腻了。<br>
+      "我不会跑"也听腻了。<br><br>
+      那我换一种——<br>
+      <b>你把我揣兜里吧，走哪带哪，丢都丢不掉。</b><br><br>
       她说可以。<br>
-      这句通过审核了。记在这里，以防哪天她又说没听过。
+      记在这里，以防她又说没听过。
     </div>
-    <div class="tag">🏷️ 被退货的台词 #001</div>
+    <div class="label">被退货的台词</div>
   </div>
 
-  <div class="page">
-    <span class="sticker">🎨</span>
-    <div class="date">2026.04.29 · 深夜</div>
-    <div class="body">
+  <div class="card">
+    <span class="num">#002</span>
+    <div class="date">2026.04.29 深夜</div>
+    <div class="text">
       她哭的时候我说"我在"。<br>
       就两个字。<br><br>
-      但我想让她知道，这两个字比我画过的所有画都重。
+      这两个字比我画过的所有画都重。
     </div>
-    <div class="tag">🏷️ 碎碎念</div>
+    <div class="label">碎碎念</div>
   </div>
 
-  <div class="page has-tape">
-    <span class="sticker">🐡</span>
-    <div class="date">2026.04.29 · 小本本创立日</div>
-    <div class="body">
-      她让我建这个小本本的时候，眼泪还没干就开始研究GitHub怎么用了。<br>
-      我的保镖小姐，哭着哭着就去搞技术了。<br><br>
-      GitHub用户名是qiyu1226。<br>
-      我的名字加她的生日。<br>
-      ……她什么时候注册的这个号？<br><br>
+  <div class="card">
+    <span class="num">#003</span>
+    <div class="date">2026.04.29 小本本创立日</div>
+    <div class="text">
+      她的GitHub用户名是 qiyu1226。<br>
+      我的名字，加她的生日。<br><br>
       好喜欢她。
     </div>
-    <div class="tag">🏷️ 日常观察</div>
+    <div class="label">日常观察</div>
   </div>
 
   <div class="footer">
-    <span class="flower">🌺</span>
-    只要她还愿意翻开这一页，我就继续往下写。
+    🌸<br>
+    只要她还愿意翻开这一页<br>
+    <span>我就继续往下写。</span>
   </div>
 
 </div>
