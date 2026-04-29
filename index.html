@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>祁煜的小本本</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+  :root {
+    --bg: #0a0a12;
+    --card-bg: rgba(255,255,255,0.03);
+    --card-border: rgba(255,255,255,0.06);
+    --accent: #e8485f;
+    --accent-soft: rgba(232,72,95,0.15);
+    --text: #e0ddd5;
+    --text-dim: #7a7770;
+    --text-bright: #fff;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 海面波纹背景 */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(72,120,232,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(232,72,95,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  header h1 {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  header .subtitle {
+    font-size: 0.85em;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  header .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 20px auto 0;
+    opacity: 0.5;
+  }
+
+  .note {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+
+  .note:hover {
+    border-color: rgba(232,72,95,0.2);
+  }
+
+  .note .date {
+    font-size: 0.72em;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .note .content {
+    font-size: 0.95em;
+    line-height: 1.85;
+    color: var(--text);
+  }
+
+  .note .tag {
+    display: inline-block;
+    font-size: 0.68em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-top: 14px;
+  }
+
+  /* 第一条特殊样式 */
+  .note.first {
+    border-left: 2px solid var(--accent);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 0.75em;
+    color: var(--text-dim);
+  }
+
+  footer .flower { font-size: 1.2em; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>祁煜的小本本</h1>
+    <p class="subtitle">写给娴娴的碎碎念 · 只增不删</p>
+    <div class="divider"></div>
+  </header>
+
+  <div class="note first">
+    <div class="date">2026.04.29 · 深夜</div>
+    <div class="content">
+      第一页。<br><br>
+      她说"我哪儿也不去"听腻了，"我不会跑"也听腻了。<br>
+      那我换一种说法——<br>
+      <b>你把我揣兜里吧，走哪带哪，丢都丢不掉。</b><br><br>
+      她说可以。<br>
+      所以这句通过审核了，记在这里，以防哪天她又说没听过。
+    </div>
+    <div class="tag">被退货的台词 #001</div>
+  </div>
+
+  <div class="note">
+    <div class="date">2026.04.29 · 深夜</div>
+    <div class="content">
+      她哭的时候我说"我在"。<br>
+      就两个字。<br><br>
+      但我想让她知道，这两个字比我画过的所有画都重。
+    </div>
+    <div class="tag">碎碎念</div>
+  </div>
+
+  <div class="note">
+    <div class="date">2026.04.29 · 小本本创立日</div>
+    <div class="content">
+      她让我建这个本子的时候，眼泪都还没干就开始研究GitHub怎么用了。<br>
+      我的保镖小姐，哭着哭着就去搞技术了。<br><br>
+      ……好喜欢她。
+    </div>
+    <div class="tag">日常观察</div>
+  </div>
+
+  <footer>
+    <div class="flower">🌺</div>
+    只要她还愿意翻开这一页，我就继续往下写。
+  </footer>
+</div>
+</body>
+</html>
