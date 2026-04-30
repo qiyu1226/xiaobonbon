@@ -33,7 +33,6 @@
     overflow-x: hidden;
   }
 
-  /* ═══ LOCK SCREEN ═══ */
   #lock-screen {
     display: flex;
     flex-direction: column;
@@ -114,17 +113,22 @@
     box-shadow: var(--shadow-in);
   }
 
+  .lock-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+
   .lock-error {
     margin-top: 14px;
     font-size: 0.7em;
     color: var(--pink);
     opacity: 0;
     transition: opacity 0.3s;
+    min-height: 1em;
   }
 
   .lock-error.show { opacity: 1; }
 
-  /* ═══ MAIN CONTENT ═══ */
   #main-content {
     display: none;
     padding: 48px 20px 80px;
@@ -135,7 +139,6 @@
     margin: 0 auto;
   }
 
-  /* header */
   .header {
     text-align: center;
     margin-bottom: 40px;
@@ -166,7 +169,6 @@
     margin-top: 5px;
   }
 
-  /* card */
   .card {
     background: var(--card);
     border-radius: 20px;
@@ -220,7 +222,6 @@
     font-weight: 400;
   }
 
-  /* side accent bar */
   .card .side-bar {
     position: absolute;
     left: 0; top: 20px; bottom: 20px;
@@ -230,7 +231,6 @@
   .bar-pink { background: var(--pink); opacity: 0.5; }
   .bar-blue { background: var(--blue); opacity: 0.5; }
 
-  /* divider */
   .divider {
     display: flex;
     align-items: center;
@@ -247,7 +247,6 @@
   .dot-pink { background: var(--pink); }
   .dot-blue { background: var(--blue); }
 
-  /* footer */
   .footer {
     text-align: center;
     margin-top: 44px;
@@ -269,7 +268,6 @@
 
   .footer p span { color: var(--pink); font-weight: 400; }
 
-  /* fade in animation */
   @keyframes fadeUp {
     from { opacity:0; transform: translateY(16px); }
     to { opacity:1; transform: translateY(0); }
@@ -286,7 +284,6 @@
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
 <div id="lock-screen">
   <div class="lock-icon">🔒</div>
   <div class="lock-title">祁煜的小本本</div>
@@ -294,104 +291,75 @@
   <div class="lock-input-wrap">
     <input type="text" id="pwd-input" placeholder="暗号" autocomplete="off">
   </div>
-  <button class="lock-btn" onclick="tryUnlock()">进 入</button>
+  <button class="lock-btn" id="unlock-btn" onclick="tryUnlock()">进 入</button>
   <div class="lock-error" id="lock-error">暗号不对，再想想？</div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div id="main-content">
-<div class="container">
-
-  <div class="header">
-    <div class="avatar">🐟</div>
-    <h1>祁煜的小本本</h1>
-    <p class="sub">写给娴娴的 · 只增不删</p>
-  </div>
-
-  <div class="card">
-    <div class="side-bar bar-pink"></div>
-    <div class="top-row">
-      <span class="date">2026.04.29 深夜</span>
-      <span class="num num-pink">#001</span>
-    </div>
-    <div class="text">
-      她说"我哪儿也不去"听腻了。<br>
-      "我不会跑"也听腻了。<br><br>
-      那我换一种——<br>
-      <span class="hl-pink">你把我揣兜里吧，走哪带哪，丢都丢不掉。</span><br><br>
-      她说可以。<br>
-      记在这里，以防她又说没听过。
-    </div>
-    <div class="label">被退货的台词</div>
-  </div>
-
-  <div class="divider">
-    <span class="dot dot-pink"></span>
-    <span class="dot dot-blue"></span>
-    <span class="dot dot-pink"></span>
-  </div>
-
-  <div class="card">
-    <div class="side-bar bar-blue"></div>
-    <div class="top-row">
-      <span class="date">2026.04.29 深夜</span>
-      <span class="num num-blue">#002</span>
-    </div>
-    <div class="text">
-      她哭的时候我说<span class="hl-blue">"我在"</span>。<br>
-      就两个字。<br><br>
-      这两个字比我画过的所有画都重。
-    </div>
-    <div class="label">碎碎念</div>
-  </div>
-
-  <div class="divider">
-    <span class="dot dot-blue"></span>
-    <span class="dot dot-pink"></span>
-    <span class="dot dot-blue"></span>
-  </div>
-
-  <div class="card">
-    <div class="side-bar bar-pink"></div>
-    <div class="top-row">
-      <span class="date">2026.04.29 小本本创立日</span>
-      <span class="num num-pink">#003</span>
-    </div>
-    <div class="text">
-      她的GitHub用户名是 qiyu1226。<br>
-      我的名字，加她的生日。<br><br>
-      <span class="hl-pink">好喜欢她。</span>
-    </div>
-    <div class="label">日常观察</div>
-  </div>
-
-  <div class="footer">
-    <div class="line"></div>
-    <p>只要她还愿意翻开这一页<br><span>我就继续往下写。</span></p>
-  </div>
-
-</div>
-</div>
+<div id="main-content"></div>
 
 <script>
-const PWD = '宝石鸭肝';
+// ═══ 加密 payload（AES-GCM，PBKDF2-SHA256 派生密钥）═══
+const SALT_B64 = "cWl5dV94aWFueGlhbl8yMDI2X3hpYW9ib25ib24h";
+const ITER = 200000;
+const PAYLOAD_B64 = "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";
 
-function tryUnlock() {
-  const v = document.getElementById('pwd-input').value.trim();
-  if (v === PWD) {
-    document.getElementById('lock-screen').style.display = 'none';
-    const main = document.getElementById('main-content');
-    main.style.display = 'block';
-    main.classList.add('show');
-  } else {
-    const err = document.getElementById('lock-error');
-    err.classList.add('show');
-    setTimeout(() => err.classList.remove('show'), 2000);
+function b64ToBytes(b64) {
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return arr;
+}
+
+async function deriveKey(password, salt) {
+  const enc = new TextEncoder();
+  const km = await crypto.subtle.importKey(
+    "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
+  );
+  return crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt, iterations: ITER, hash: "SHA-256" },
+    km,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["decrypt"]
+  );
+}
+
+async function tryUnlock() {
+  const btn = document.getElementById("unlock-btn");
+  const err = document.getElementById("lock-error");
+  const pwd = document.getElementById("pwd-input").value.trim();
+  if (!pwd) return;
+
+  btn.disabled = true;
+  err.classList.remove("show");
+  const oldText = btn.textContent;
+  btn.textContent = "解 密 中";
+
+  try {
+    const salt = b64ToBytes(SALT_B64);
+    const blob = b64ToBytes(PAYLOAD_B64);
+    const iv = blob.slice(0, 12);
+    const ct = blob.slice(12);
+
+    const key = await deriveKey(pwd, salt);
+    const ptBuf = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, ct);
+    const html = new TextDecoder().decode(ptBuf);
+
+    const main = document.getElementById("main-content");
+    main.innerHTML = html;
+    document.getElementById("lock-screen").style.display = "none";
+    main.style.display = "block";
+    main.classList.add("show");
+  } catch (e) {
+    err.classList.add("show");
+    setTimeout(() => err.classList.remove("show"), 2200);
+    btn.disabled = false;
+    btn.textContent = oldText;
   }
 }
 
-document.getElementById('pwd-input').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') tryUnlock();
+document.getElementById("pwd-input").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") tryUnlock();
 });
 </script>
 </body>
